@@ -29,7 +29,7 @@
             ],
             "scripts": []
           },
-          "configurations": {
+            "configurations": {
             "production": {
               "budgets": [
                 {
@@ -43,6 +43,10 @@
                   "maximumError": "4kb"
                 }
               ],
+              "outputHashing": "all"
+            },
+            "github-pages": {
+              "baseHref": "/ecommerce-angular/",
               "outputHashing": "all"
             },
             "development": {

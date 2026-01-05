@@ -39,4 +39,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/ecommerce-app
           enable_jekyll: false
-          enable_jekyll: false

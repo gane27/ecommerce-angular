@@ -37,7 +37,7 @@ import { CartSidebarComponent } from './components/cart-sidebar/cart-sidebar.com
         <span *ngIf="isAuthenticated()" class="user-info">
           <span class="user-text">Welcome, {{ getCurrentUser() }}</span>
         </span>
-        <button mat-icon-button (click)="toggleCart()" [matBadge]="cartItemCount()" matBadgeColor="accent" class="cart-btn">
+        <button mat-icon-button (click)="toggleCart()" [matBadge]="cartItemCount" matBadgeColor="accent" class="cart-btn">
           <mat-icon>shopping_cart</mat-icon>
         </button>
       </div>
@@ -45,7 +45,7 @@ import { CartSidebarComponent } from './components/cart-sidebar/cart-sidebar.com
     
     <router-outlet></router-outlet>
     
-    <app-cart-sidebar [isOpen]="cartOpen()"></app-cart-sidebar>
+    <app-cart-sidebar [isOpen]="cartOpen"></app-cart-sidebar>
   `
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -73,11 +73,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get cartOpen() {
-    return this.cartService.cartOpen;
+    return this.cartService.cartOpen();
   }
 
   get cartItemCount() {
-    return this.cartService.cartItemCount;
+    return this.cartService.cartItemCount();
   }
 
   toggleCart() {

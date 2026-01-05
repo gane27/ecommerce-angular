@@ -92,12 +92,30 @@ export class SignInComponent {
     if (this.signInForm.valid) {
       const { email, password } = this.signInForm.value;
       if (this.authService.signIn(email, password)) {
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/checkout';
+        const returnUrl = this.getValidatedReturnUrl();
         this.router.navigate([returnUrl]);
       } else {
         this.errorMessage = 'Invalid credentials. Please try again.';
       }
     }
+  }
+
+  private getValidatedReturnUrl(): string {
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'];
+    
+    // Whitelist of allowed internal routes
+    const allowedRoutes = ['/checkout', '/', '/signin'];
+    
+    // Validate that returnUrl is a string, starts with '/', and is in the whitelist
+    if (returnUrl && 
+        typeof returnUrl === 'string' && 
+        returnUrl.startsWith('/') && 
+        allowedRoutes.includes(returnUrl)) {
+      return returnUrl;
+    }
+    
+    // Default to checkout if invalid or missing
+    return '/checkout';
   }
 
   goHome() {

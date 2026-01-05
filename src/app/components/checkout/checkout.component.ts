@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -160,10 +160,11 @@ import { CartItem } from '../../models/cart-item.model';
     </div>
   `
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnDestroy {
   checkoutForm: FormGroup;
   cartItems: CartItem[] = [];
   shippingCost: number = 10.0;
+  private redirectTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     private fb: FormBuilder,
@@ -208,9 +209,15 @@ export class CheckoutComponent {
       });
 
       // Redirect to home after a delay
-      setTimeout(() => {
+      this.redirectTimeout = setTimeout(() => {
         this.router.navigate(['/']);
       }, 2000);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.redirectTimeout) {
+      clearTimeout(this.redirectTimeout);
     }
   }
 

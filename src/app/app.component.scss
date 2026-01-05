@@ -1,0 +1,128 @@
+@use '@angular/material' as mat;
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 16px;
+}
+
+.company-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-text {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.sign-in-btn .btn-label {
+  margin-left: 4px;
+}
+
+.cart-btn {
+  margin-left: 8px;
+}
+
+/* Mobile Styles (< 600px) */
+@media (max-width: 599px) {
+  .app-toolbar {
+    padding: 0 8px;
+    min-height: 56px;
+    height: 56px;
+  }
+
+  .company-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .toolbar-actions {
+    gap: 4px;
+  }
+
+  .sign-in-btn {
+    padding: 8px 12px;
+    min-width: auto;
+  }
+
+  .sign-in-btn .btn-label {
+    display: none;
+  }
+
+  .sign-in-btn mat-icon {
+    margin: 0;
+  }
+
+  .user-text {
+    display: none;
+  }
+
+  .user-info::before {
+    content: "👤";
+    font-size: 1.2rem;
+    display: inline-block;
+  }
+
+  .cart-btn {
+    margin-left: 4px;
+    padding: 8px;
+  }
+
+  .cart-btn mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Tablet Styles (600px - 959px) */
+@media (min-width: 600px) and (max-width: 959px) {
+  .app-toolbar {
+    padding: 0 12px;
+  }
+
+  .company-name {
+    font-size: 1.3rem;
+  }
+
+  .user-text {
+    max-width: 150px;
+    font-size: 0.9rem;
+  }
+
+  .sign-in-btn {
+    padding: 10px 16px;
+  }
+
+  .toolbar-actions {
+    gap: 8px;
+  }
+}
+
+/* Small Desktop (960px - 1279px) */
+@media (min-width: 960px) and (max-width: 1279px) {
+  .app-toolbar {
+    padding: 0 16px;
+  }
+}

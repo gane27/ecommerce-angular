@@ -1,0 +1,399 @@
+@use '@angular/material' as mat;
+
+// Carousel Styles
+.carousel-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  will-change: transform;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-content {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  z-index: 1;
+}
+
+.banner-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.banner-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  &:focus {
+    outline: 2px solid mat.get-color-from-palette(mat.$indigo-palette, 500);
+    outline-offset: 2px;
+  }
+}
+
+.carousel-prev {
+  left: 16px;
+}
+
+.carousel-next {
+  right: 16px;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  &.active {
+    background-color: white;
+    width: 32px;
+    border-radius: 6px;
+  }
+  
+  &:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+}
+
+.price {
+  color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  width: 100%;
+}
+
+// Use Material's grid list with minimal overrides
+mat-grid-list {
+  width: 100%;
+  margin: 0;
+}
+
+mat-grid-tile {
+  overflow: visible;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.product-card {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+// Let Material handle card image positioning
+
+// Use Material's built-in card image styling with minimal overrides
+::ng-deep mat-card img[mat-card-image] {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.product-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+}
+
+.btn-text {
+  margin-left: 8px;
+}
+
+mat-card-actions {
+  padding: 8px 16px 16px;
+  margin: 0;
+}
+
+/* Mobile Styles (< 600px) */
+@media (max-width: 599px) {
+  .carousel-slide {
+    height: 300px;
+  }
+  
+  .banner-title {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+  }
+  
+  .banner-subtitle {
+    font-size: 1rem;
+  }
+  
+  .carousel-nav {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .carousel-prev {
+    left: 8px;
+  }
+  
+  .carousel-next {
+    right: 8px;
+  }
+  
+  .carousel-indicators {
+    bottom: 12px;
+  }
+  
+  .indicator {
+    width: 8px;
+    height: 8px;
+    
+    &.active {
+      width: 24px;
+    }
+  }
+  
+  .container {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  mat-grid-list {
+    width: 100%;
+    margin: 0;
+    display: block;
+    min-height: 200px;
+  }
+
+  mat-grid-tile {
+    overflow: visible;
+  }
+
+  .product-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+
+  ::ng-deep mat-card img[mat-card-image] {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+    object-fit: cover;
+    object-position: center;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  .price {
+    font-size: 1.25rem;
+  }
+
+  .description {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .btn-text {
+    display: none;
+  }
+
+  .add-to-cart-btn {
+    min-width: auto;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  mat-card-actions {
+    padding: 8px 12px 12px !important;
+  }
+}
+
+/* Tablet Styles (600px - 959px) */
+@media (min-width: 600px) and (max-width: 959px) {
+  .carousel-slide {
+    height: 400px;
+  }
+  
+  .banner-title {
+    font-size: 2.5rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .container {
+    padding: 16px;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+  }
+
+  ::ng-deep mat-card img[mat-card-image] {
+    height: 220px;
+    min-height: 220px;
+  }
+
+  .price {
+    font-size: 1.4rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .add-to-cart-btn {
+    padding: 10px 20px;
+  }
+}
+
+/* Small Desktop (960px - 1279px) */
+@media (min-width: 960px) and (max-width: 1279px) {
+  .container {
+    padding: 20px;
+  }
+}
+
+/* Large Desktop (≥ 1280px) */
+@media (min-width: 1280px) {
+  .container {
+    padding: 24px;
+  }
+}

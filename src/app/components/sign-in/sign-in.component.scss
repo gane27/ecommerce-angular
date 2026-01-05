@@ -1,0 +1,133 @@
+@use '@angular/material' as mat;
+
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+  padding: 20px;
+}
+
+.signin-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.error-message {
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+mat-card-title {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+mat-card-footer {
+  text-align: center;
+  padding: 16px;
+}
+
+/* Mobile Styles (< 600px) */
+@media (max-width: 599px) {
+  .signin-container {
+    padding: 16px 12px;
+    align-items: flex-start;
+    padding-top: 32px;
+    min-height: calc(100vh - 64px);
+  }
+
+  .signin-card {
+    padding: 24px 20px;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+  }
+
+  mat-card-header {
+    margin-bottom: 20px;
+    padding: 0;
+  }
+
+  mat-card-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  .full-width {
+    margin-bottom: 12px;
+  }
+
+  mat-form-field {
+    font-size: 16px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    min-height: 48px;
+    margin-top: 8px;
+  }
+
+  mat-card-footer {
+    padding: 12px 0;
+  }
+
+  mat-card-footer button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* Tablet Styles (600px - 959px) */
+@media (min-width: 600px) and (max-width: 959px) {
+  .signin-container {
+    padding: 24px 16px;
+  }
+
+  .signin-card {
+    padding: 32px 28px;
+    max-width: 450px;
+  }
+
+  mat-card-title {
+    font-size: 1.75rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 1rem;
+  }
+
+  .full-width {
+    margin-bottom: 16px;
+  }
+
+  button[type="submit"] {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+
+/* Desktop Styles (≥ 960px) */
+@media (min-width: 960px) {
+  .signin-card {
+    padding: 32px;
+  }
+}

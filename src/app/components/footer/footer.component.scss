@@ -1,0 +1,182 @@
+@use '@angular/material' as mat;
+
+.app-footer {
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 900);
+  color: mat.get-color-from-palette(mat.$grey-palette, 100);
+  padding: 40px 20px 20px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-section {
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0 0 12px 0;
+    color: white;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 16px 0;
+    color: white;
+  }
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: mat.get-color-from-palette(mat.$grey-palette, 300);
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: mat.get-color-from-palette(mat.$grey-palette, 300);
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: mat.get-color-from-palette(mat.$indigo-palette, 300);
+      }
+
+      a {
+        color: mat.get-color-from-palette(mat.$grey-palette, 300);
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: mat.get-color-from-palette(mat.$indigo-palette, 300);
+        }
+      }
+    }
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: mat.get-color-from-palette(mat.$grey-palette, 300);
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      background-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+      color: white;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: mat.get-color-from-palette(mat.$grey-palette, 400);
+  }
+}
+
+/* Mobile Styles (< 600px) */
+@media (max-width: 599px) {
+  .app-footer {
+    padding: 30px 16px 16px;
+    margin-top: 40px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .footer-section {
+    h3 {
+      font-size: 1.3rem;
+    }
+
+    h4 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+    }
+  }
+
+  .social-links {
+    gap: 10px;
+
+    a {
+      width: 36px;
+      height: 36px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .footer-bottom {
+    padding-top: 16px;
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/* Tablet Styles (600px - 959px) */
+@media (min-width: 600px) and (max-width: 959px) {
+  .app-footer {
+    padding: 35px 20px 18px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+}

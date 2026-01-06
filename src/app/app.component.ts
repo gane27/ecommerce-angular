@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
 import { CartSidebarComponent } from './components/cart-sidebar/cart-sidebar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ import { CartSidebarComponent } from './components/cart-sidebar/cart-sidebar.com
     MatButtonModule,
     MatIconModule,
     MatBadgeModule,
-    CartSidebarComponent
+    CartSidebarComponent,
+    FooterComponent
   ],
   styleUrls: ['./app.component.scss'],
   template: `
@@ -43,7 +45,11 @@ import { CartSidebarComponent } from './components/cart-sidebar/cart-sidebar.com
       </div>
     </mat-toolbar>
     
-    <router-outlet></router-outlet>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+    
+    <app-footer></app-footer>
     
     <app-cart-sidebar [isOpen]="cartOpen"></app-cart-sidebar>
   `

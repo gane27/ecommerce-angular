@@ -63,7 +63,6 @@ import { CartItem } from '../../models/cart-item.model';
         </div>
 
         <div *ngIf="cartItems.length > 0" class="cart-footer">
-          <mat-divider></mat-divider>
           <div class="cart-total">
             <div class="total-row">
               <span>Total:</span>

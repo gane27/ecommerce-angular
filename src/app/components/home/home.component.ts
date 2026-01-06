@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
+import { RecommendationsComponent } from '../recommendations/recommendations.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import { Product } from '../../models/product.model';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    RecommendationsComponent
   ],
   styleUrls: ['./home.component.scss'],
   template: `
@@ -95,6 +97,8 @@ import { Product } from '../../models/product.model';
         </mat-grid-tile>
       </mat-grid-list>
     </div>
+
+    <app-recommendations [allProducts]="products"></app-recommendations>
   `
 })
 export class HomeComponent implements OnInit, OnDestroy {

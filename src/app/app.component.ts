@@ -12,6 +12,7 @@ import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
 import { CartSidebarComponent } from './components/cart-sidebar/cart-sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AiChatbotComponent } from './components/ai-chatbot/ai-chatbot.component';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ import { FooterComponent } from './components/footer/footer.component';
     MatIconModule,
     MatBadgeModule,
     CartSidebarComponent,
-    FooterComponent
+    FooterComponent,
+    AiChatbotComponent
   ],
   styleUrls: ['./app.component.scss'],
   template: `
@@ -52,6 +54,8 @@ import { FooterComponent } from './components/footer/footer.component';
     <app-footer></app-footer>
     
     <app-cart-sidebar [isOpen]="cartOpen"></app-cart-sidebar>
+    
+    <app-ai-chatbot></app-ai-chatbot>
   `
 })
 export class AppComponent implements OnInit, OnDestroy {

@@ -10,6 +10,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../services/cart.service';
+import { OrderService } from '../../services/order.service';
+import { AuthService } from '../../services/auth.service';
+import { Order } from '../../models/order.model';
 import { CartItem } from '../../models/cart-item.model';
 
 @Component({
@@ -169,6 +172,8 @@ export class CheckoutComponent implements OnDestroy {
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
+    private orderService: OrderService,
+    private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {
@@ -197,7 +202,38 @@ export class CheckoutComponent implements OnDestroy {
 
   onSubmit() {
     if (this.checkoutForm.valid && this.cartItems.length > 0) {
-      // Simulate order submission
+      const currentUser = this.authService.getCurrentUser();
+      if (!currentUser) {
+        this.snackBar.open('Please sign in to place an order', 'Close', {
+          duration: 3000
+        });
+        return;
+      }
+
+      // Create order
+      const order: Order = {
+        id: this.generateOrderId(),
+        userId: currentUser,
+        items: this.cartItems.map(item => ({
+          product: item.product,
+          quantity: item.quantity
+        })),
+        total: this.getTotal(),
+        date: new Date(),
+        shippingInfo: {
+          fullName: this.checkoutForm.value.fullName,
+          email: this.checkoutForm.value.email,
+          address: this.checkoutForm.value.address,
+          city: this.checkoutForm.value.city,
+          zipCode: this.checkoutForm.value.zipCode,
+          phone: this.checkoutForm.value.phone
+        }
+      };
+
+      // Save order
+      this.orderService.addOrder(order);
+      
+      // Clear cart
       this.cartService.clearCart();
       
       // Show success popup
@@ -213,6 +249,10 @@ export class CheckoutComponent implements OnDestroy {
         this.router.navigate(['/']);
       }, 2000);
     }
+  }
+
+  private generateOrderId(): string {
+    return `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
   ngOnDestroy() {

@@ -73,14 +73,24 @@ import { Product } from '../../models/product.model';
               <mat-card-title>{{ product.name }}</mat-card-title>
               <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
               <p class="description">{{ product.description }}</p>
-              <p class="price">{{ product.price | currency:'USD':'symbol':'1.2-2' }}</p>
+              <div class="rating-container" *ngIf="product.rating">
+                <div class="stars">
+                  <mat-icon *ngFor="let star of getStars(product.rating)" 
+                    [class.filled]="star === 1" 
+                    [class.half]="star === 0.5"
+                    [class.empty]="star === 0">star</mat-icon>
+                </div>
+                <span class="rating-text">{{ product.rating }}</span>
+                <span class="review-count" *ngIf="product.reviewCount">({{ product.reviewCount }})</span>
+              </div>
+              <div class="price-button-container">
+                <p class="price">{{ product.price | currency:'USD':'symbol':'1.2-2' }}</p>
+                <button mat-raised-button color="primary" (click)="addToCart(product)" class="add-to-cart-btn">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                  <span class="btn-text">Add to Cart</span>
+                </button>
+              </div>
             </mat-card-content>
-            <mat-card-actions>
-              <button mat-raised-button color="primary" (click)="addToCart(product)" class="add-to-cart-btn">
-                <mat-icon>add_shopping_cart</mat-icon>
-                <span class="btn-text">Add to Cart</span>
-              </button>
-            </mat-card-actions>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
@@ -101,15 +111,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentSlide = 0;
   carouselSlides = [
     {
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80',
+      image: 'assets/images/carousel-1.jpg',
       alt: 'Shopping experience'
     },
     {
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80',
+      image: 'assets/images/carousel-2.jpg',
       alt: 'Modern products'
     },
     {
-      image: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1920&q=80',
+      image: 'assets/images/carousel-3.jpg',
       alt: 'Quality products'
     }
   ];
@@ -117,66 +127,82 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 1,
       name: 'Wireless Headphones',
-      description: 'Premium quality wireless headphones with noise cancellation',
+      description: 'Premium wireless headphones with noise cancellation',
       price: 99.99,
-      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500',
-      category: 'Electronics'
+      image: 'assets/images/wireless-headphones.jpg',
+      category: 'Electronics',
+      rating: 4.5,
+      reviewCount: 128
     },
     {
       id: 2,
       name: 'Smart Watch',
       description: 'Feature-rich smartwatch with fitness tracking',
       price: 199.99,
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
-      category: 'Electronics'
+      image: 'assets/images/smart-watch.jpg',
+      category: 'Electronics',
+      rating: 4.8,
+      reviewCount: 256
     },
     {
       id: 3,
       name: 'Laptop Backpack',
       description: 'Durable laptop backpack with multiple compartments',
       price: 49.99,
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
-      category: 'Accessories'
+      image: 'assets/images/laptop-backpack.jpg',
+      category: 'Accessories',
+      rating: 4.3,
+      reviewCount: 89
     },
     {
       id: 4,
       name: 'Wireless Mouse',
       description: 'Ergonomic wireless mouse with long battery life',
       price: 29.99,
-      image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=500',
-      category: 'Electronics'
+      image: 'assets/images/wireless-mouse.jpg',
+      category: 'Electronics',
+      rating: 4.6,
+      reviewCount: 203
     },
     {
       id: 5,
       name: 'USB-C Hub',
       description: 'Multi-port USB-C hub for laptops and tablets',
       price: 39.99,
-      image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=500&fit=crop&auto=format',
-      category: 'Accessories'
+      image: 'assets/images/usb-c-hub.jpg',
+      category: 'Accessories',
+      rating: 4.4,
+      reviewCount: 167
     },
     {
       id: 6,
       name: 'Mechanical Keyboard',
       description: 'RGB mechanical keyboard with customizable keys',
       price: 89.99,
-      image: 'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500',
-      category: 'Electronics'
+      image: 'assets/images/mechanical-keyboard.jpg',
+      category: 'Electronics',
+      rating: 4.7,
+      reviewCount: 312
     },
     {
       id: 7,
       name: 'Phone Stand',
       description: 'Adjustable phone stand for desk and car',
       price: 19.99,
-      image: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500',
-      category: 'Accessories'
+      image: 'assets/images/phone-stand.jpg',
+      category: 'Accessories',
+      rating: 4.2,
+      reviewCount: 94
     },
     {
       id: 8,
       name: 'Power Bank',
       description: 'High capacity power bank with fast charging',
       price: 34.99,
-      image: 'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=500&h=500&fit=crop&auto=format',
-      category: 'Accessories'
+      image: 'assets/images/power-bank.jpg',
+      category: 'Accessories',
+      rating: 4.5,
+      reviewCount: 178
     }
   ];
 
@@ -199,7 +225,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         if (result.breakpoints[Breakpoints.XSmall]) {
           this.gridCols = 1;
-          this.rowHeight = '450px';
+          this.rowHeight = '420px';
           this.gutterSize = '12px';
         } else if (result.breakpoints[Breakpoints.Small]) {
           this.gridCols = 2;
@@ -207,11 +233,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.gutterSize = '16px';
         } else if (result.breakpoints[Breakpoints.Medium]) {
           this.gridCols = 3;
-          this.rowHeight = '420px';
+          this.rowHeight = '380px';
           this.gutterSize = '20px';
         } else {
           this.gridCols = 4;
-          this.rowHeight = '400px';
+          this.rowHeight = '360px';
           this.gutterSize = '20px';
         }
       });
@@ -224,7 +250,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (width < 600) {
       // Mobile - use larger height to ensure cards are fully visible
       this.gridCols = 1;
-      this.rowHeight = '450px';
+      this.rowHeight = '420px';
       this.gutterSize = '12px';
     } else if (width >= 600 && width < 960) {
       // Tablet
@@ -234,12 +260,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else if (width >= 960 && width < 1280) {
       // Medium desktop
       this.gridCols = 3;
-      this.rowHeight = '420px';
+      this.rowHeight = '380px';
       this.gutterSize = '20px';
     } else {
       // Large desktop
       this.gridCols = 4;
-      this.rowHeight = '400px';
+      this.rowHeight = '360px';
       this.gutterSize = '20px';
     }
   }
@@ -288,10 +314,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.cartService.addToCart(product);
   }
 
+  getStars(rating: number): number[] {
+    const stars: number[] = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(1);
+    }
+    
+    if (hasHalfStar && stars.length < 5) {
+      stars.push(0.5);
+    }
+    
+    while (stars.length < 5) {
+      stars.push(0);
+    }
+    
+    return stars;
+  }
+
   onImageError(event: Event) {
     const img = event.target as HTMLImageElement;
-    // Use a reliable placeholder service with product name
-    const productName = img.alt || 'Product';
-    img.src = `https://via.placeholder.com/500x300/667eea/ffffff?text=${encodeURIComponent(productName)}`;
+    // Use local placeholder image instead of external URL
+    img.src = 'assets/images/placeholder.jpg';
   }
 }

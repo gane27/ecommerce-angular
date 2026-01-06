@@ -151,7 +151,11 @@
 }
 
 .price {
-  color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+  color: mat.get-color-from-palette(mat.$indigo-palette, 600);
+  text-align: left;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-left: 5px;
 }
 
 .container {
@@ -186,7 +190,7 @@ mat-grid-tile {
   flex-direction: column;
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 // Let Material handle card image positioning
@@ -194,20 +198,27 @@ mat-grid-tile {
 // Use Material's built-in card image styling with minimal overrides
 ::ng-deep mat-card img[mat-card-image] {
   width: 100%;
-  height: 200px;
+  height: 100px;
+  min-height: 150px;
   object-fit: cover;
   object-position: center;
   background-color: rgba(0, 0, 0, 0.04);
+}
+
+// Ensure proper padding for card content
+::ng-deep .product-card mat-card-content {
+  padding-bottom: 40px !important;
 }
 
 .product-card-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding-bottom: 40px !important;
 }
 
 .description {
-  margin-top: 8px;
+  margin-top: 1px;
   font-size: 0.9rem;
   flex: 1;
   overflow: hidden;
@@ -218,24 +229,105 @@ mat-grid-tile {
   -webkit-box-orient: vertical;
 }
 
-.price {
-  font-size: 1.5rem;
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #ddd;
+    transition: color 0.2s;
+    
+    &.filled {
+      color: #ffc107;
+    }
+    
+    &.half {
+      color: #ffc107;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        background-color: #f5f5f5;
+        clip-path: inset(0 0 0 50%);
+      }
+    }
+    
+    &.empty {
+      color: #ddd;
+    }
+  }
+}
+
+.rating-text {
+  font-size: 0.85rem;
   font-weight: 500;
+  color: #333;
+  margin-left: 2px;
+}
+
+.review-count {
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 2px;
+}
+
+.price-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 12px;
+  margin-bottom: 32px;
+  gap: 12px;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin: 0;
+  margin-left: 5px;
+  text-align: left;
+  color: mat.get-color-from-palette(mat.$indigo-palette, 600);
+  letter-spacing: 0.02em;
+  flex: 1;
 }
 
 .add-to-cart-btn {
-  width: 100%;
+  flex-shrink: 0;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  min-width: auto;
+  white-space: nowrap;
+  
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .btn-text {
   margin-left: 8px;
 }
 
-mat-card-actions {
-  padding: 8px 16px 16px;
-  margin: 0;
-}
+// Price and button are now in price-button-container, no need for mat-card-actions
 
 /* Mobile Styles (< 600px) */
 @media (max-width: 599px) {
@@ -311,15 +403,30 @@ mat-card-actions {
 
   ::ng-deep mat-card img[mat-card-image] {
     width: 100%;
-    height: 200px;
-    min-height: 200px;
+    height: 240px;
+    min-height: 240px;
     object-fit: cover;
     object-position: center;
     background-color: rgba(0, 0, 0, 0.04);
   }
 
+  .price-button-container {
+    margin-top: 10px;
+    margin-bottom: 28px;
+    gap: 8px;
+  }
+  
+  ::ng-deep .product-card mat-card-content {
+    padding-bottom: 36px !important;
+  }
+
   .price {
-    font-size: 1.25rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
+    margin-left: 5px;
+    letter-spacing: 0.02em;
   }
 
   .description {
@@ -334,12 +441,14 @@ mat-card-actions {
 
   .add-to-cart-btn {
     min-width: auto;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-
-  mat-card-actions {
-    padding: 8px 12px 12px !important;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
@@ -367,20 +476,57 @@ mat-card-actions {
   }
 
   ::ng-deep mat-card img[mat-card-image] {
-    height: 220px;
-    min-height: 220px;
+    height: 260px;
+    min-height: 260px;
+  }
+
+  .rating-container {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    gap: 4px;
+  }
+
+  .price-button-container {
+    margin-top: 10px;
+    margin-bottom: 16px;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  ::ng-deep .product-card mat-card-content {
+    padding-bottom: 24px !important;
   }
 
   .price {
-    font-size: 1.4rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
+    margin-left: 5px;
+    letter-spacing: 0.02em;
+    flex: 1;
   }
 
   .description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-top: 6px;
   }
 
   .add-to-cart-btn {
-    padding: 10px 20px;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    min-width: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    
+    mat-icon {
+      display: none;
+    }
+    
+    .btn-text {
+      margin-left: 0;
+    }
   }
 }
 
